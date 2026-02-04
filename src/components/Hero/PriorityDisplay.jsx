@@ -29,9 +29,10 @@ export const PriorityOdometer = ({ rank }) => {
     return (
         <div className="text-right ml-auto">
             <div className="text-xs text-brand-indigo/80 font-mono tracking-wider mb-1">POSITION IN WAITLIST</div>
-            <motion.div className="text-2xl font-bold font-mono text-brand-cyan drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">
-                #{displayRank}
-            </motion.div>
+            <div className="text-2xl font-bold font-mono text-brand-cyan drop-shadow-[0_0_10px_rgba(34,211,238,0.5)] flex items-center justify-end gap-1">
+                <span>#</span>
+                <motion.span>{displayRank}</motion.span>
+            </div>
         </div>
     );
 };
