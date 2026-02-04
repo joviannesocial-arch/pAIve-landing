@@ -8,7 +8,7 @@ export const WaitlistEngine = ({ userData, setUserData, onSubmit, errors, status
             initial={{ opacity: 0, scale: 0.98 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            className="w-full text-left pt-12"
+            className="w-full text-left pt-4"
         >
             {/* Header */}
             <motion.h3

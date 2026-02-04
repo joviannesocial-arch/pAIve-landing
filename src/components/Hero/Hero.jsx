@@ -105,7 +105,7 @@ export const Hero = () => {
     };
 
     return (
-        <section className="relative pt-40 pb-20 px-6 min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
+        <section className="relative pt-24 pb-20 px-6 min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
 
             {/* Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-indigo/20 rounded-full blur-[120px] -z-10" />
@@ -135,7 +135,7 @@ export const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-lg md:text-xl text-gray-400 max-w-2xl mb-12 leading-relaxed"
+                className="text-lg md:text-xl text-gray-400 max-w-2xl mb-8 leading-relaxed"
             >
                 Meet pAIve, your AI career partner that guides you through industry pivots, imposter syndrome, and finding your true career suitability.
             </motion.p>
@@ -148,7 +148,7 @@ export const Hero = () => {
                 className="w-full max-w-2xl relative z-10"
             >
                 <div className="glass-panel rounded-xl p-1">
-                    <div className="bg-space-black/50 rounded-lg p-6 md:p-8 min-h-[420px] flex flex-col justify-center relative">
+                    <div className="bg-space-black/50 rounded-lg p-6 md:p-8 min-h-[380px] flex flex-col justify-center relative">
 
                         {/* ABSOLUTE TOP BAR: Status & Rank */}
                         <div className="absolute top-8 left-8 right-8 flex justify-between items-start pointer-events-none">
