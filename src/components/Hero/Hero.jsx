@@ -31,7 +31,7 @@ export const Hero = () => {
         {
             id: 'path',
             question: "Where are you currently on the path?",
-            options: ["Still studying", "Fresh Grad", "Career Switcher", "Feeling stuck", "Something else..."]
+            options: ["Still studying", "Fresh Grad/Graduate", "Career Switcher", "Feeling stuck", "Something else..."]
         },
         {
             id: 'noise',
@@ -50,7 +50,7 @@ export const Hero = () => {
         },
         {
             id: 'one_thing',
-            question: "What is the one thing you'd trust an AI partner to solve once and for all?",
+            question: "What are you hoping to achieve with pAIve?",
             options: ["Finding the right roles", "CV optimization", "Emotional support", "Salary negotiation", "Something else..."]
         }
     ];
