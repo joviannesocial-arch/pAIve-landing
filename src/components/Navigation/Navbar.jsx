@@ -116,7 +116,7 @@ export const Navbar = () => {
                     </div>
 
                     <div className="hidden md:block">
-                        <GradientButton className="py-2 px-6 text-sm">
+                        <GradientButton className="py-2 px-6 text-sm" onClick={() => scrollToSection('waitlist-section')}>
                             Join Community
                         </GradientButton>
                     </div>
@@ -159,7 +159,10 @@ export const Navbar = () => {
                                 )
                             ))}
                             <div className="mt-4">
-                                <GradientButton className="w-full py-3">Join Community</GradientButton>
+                                <GradientButton className="w-full py-3" onClick={() => {
+                                    scrollToSection('waitlist-section');
+                                    setMobileMenuOpen(false);
+                                }}>Join Community</GradientButton>
                             </div>
                         </div>
                     </motion.div>

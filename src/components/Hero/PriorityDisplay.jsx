@@ -65,8 +65,8 @@ export const PriorityMessage = ({ name, status, children }) => {
                 className="text-2xl md:text-3xl font-bold text-white mb-6"
             >
                 {status === 'success'
-                    ? `You’re in, ${name}. We’ve got you.`
-                    : `We’ve heard you, ${name}.`
+                    ? `YAY! You’re in, ${name}!`
+                    : `We’ve heard you, ${name}. Thank you :)`
                 }
             </motion.h3>
 

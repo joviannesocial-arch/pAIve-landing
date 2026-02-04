@@ -32,7 +32,7 @@ export const PersonalNote = () => {
     const beamOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
 
     return (
-        <section id="why-paive" ref={containerRef} className="py-12 px-6 relative z-10 flex flex-col justify-center">
+        <section id="why-paive" ref={containerRef} className="py-12 px-6 relative z-10 flex flex-col justify-center scroll-mt-32">
             <div className="container mx-auto max-w-3xl text-center relative">
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
