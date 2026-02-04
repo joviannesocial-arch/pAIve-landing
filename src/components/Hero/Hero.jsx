@@ -104,6 +104,12 @@ export const Hero = () => {
         }
     };
 
+    const handleBack = () => {
+        if (step > 0) {
+            setStep(step - 1);
+        }
+    };
+
     return (
         <section id="waitlist-section" className="relative pt-24 pb-20 px-6 min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
 
@@ -184,6 +190,7 @@ export const Hero = () => {
                                             userData={userData}
                                             setUserData={setUserData}
                                             onNext={handleNext}
+                                            onBack={handleBack}
                                         />
                                     )}
                                 </PriorityMessage>

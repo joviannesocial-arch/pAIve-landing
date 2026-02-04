@@ -309,8 +309,18 @@ export const Quiz = () => {
                                     />
                                 </div>
 
-                                <div className="text-sm font-mono text-gray-400 mb-6 uppercase tracking-wider text-end">
-                                    Step {currentStep + 1} / {questions.length}
+                                {currentStep > 0 && (
+                                    <button
+                                        onClick={() => setCurrentStep(prev => prev - 1)}
+                                        className="absolute top-8 left-8 flex items-center gap-1 text-gray-400 hover:text-white transition-colors z-20"
+                                    >
+                                        <ArrowLeft className="w-4 h-4" />
+                                        <span>Back</span>
+                                    </button>
+                                )}
+
+                                <div className="text-sm font-mono text-gray-400 mb-6 uppercase tracking-wider text-end mt-2">
+                                    QUESTION {currentStep + 1} / {questions.length}
                                 </div>
 
                                 <h2 className="text-xl md:text-2xl font-bold mb-8 min-h-[80px]">

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, ArrowRight } from 'lucide-react';
+import { Check, ArrowRight, ArrowLeft } from 'lucide-react';
 
 /**
  * SurveyStack Component
@@ -14,8 +14,9 @@ import { Check, ArrowRight } from 'lucide-react';
  * @param {Object} props.userData - Unified state object
  * @param {Function} props.setUserData - State setter
  * @param {Function} props.onNext - Handler for next/complete
+ * @param {Function} props.onBack - Handler for back navigation
  */
-export const SurveyStack = ({ questions, step, userData, setUserData, onNext }) => {
+export const SurveyStack = ({ questions, step, userData, setUserData, onNext, onBack }) => {
     const currentQuestion = questions[step];
 
     // Data Access Helpers
@@ -53,10 +54,19 @@ export const SurveyStack = ({ questions, step, userData, setUserData, onNext }) 
     };
 
     return (
-        <div className="space-y-6 w-full">
-            <div className="flex items-center justify-between text-xs text-gray-500 font-mono mb-2">
-                <span>QUESTION {step + 1} OF {questions.length}</span>
-                <span className="text-brand-indigo">{Math.round(((step) / questions.length) * 100)}% COMPLETE</span>
+        <div className="space-y-6 w-full relative">
+            <div className={`flex items-center justify-between text-xs text-gray-500 font-mono mb-2 ${step > 0 ? 'mt-8' : ''}`}>
+                {step > 0 && (
+                    <button
+                        onClick={onBack}
+                        className="absolute top-0 left-0 flex items-center gap-1 text-gray-400 hover:text-white transition-colors"
+                    >
+                        <ArrowLeft className="w-4 h-4" />
+                        <span>Back</span>
+                    </button>
+                )}
+                <span className="ml-auto">QUESTION {step + 1} OF {questions.length}</span>
+                <span className="text-brand-indigo ml-4">{Math.round(((step) / questions.length) * 100)}% COMPLETE</span>
             </div>
 
             <AnimatePresence mode='wait'>
@@ -80,8 +90,8 @@ export const SurveyStack = ({ questions, step, userData, setUserData, onNext }) 
                                 transition={{ delay: 0.1 + (idx * 0.05) }}
                                 onClick={() => handleAnswerSelect(option)}
                                 className={`w-full text-left px-5 py-3 rounded-lg border transition-all duration-200 text-sm font-medium ${currentSelection === option
-                                        ? 'bg-brand-indigo/20 border-brand-indigo text-white shadow-[0_0_15px_rgba(79,70,229,0.3)]'
-                                        : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:border-white/20 hover:text-gray-200'
+                                    ? 'bg-brand-indigo/20 border-brand-indigo text-white shadow-[0_0_15px_rgba(79,70,229,0.3)]'
+                                    : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:border-white/20 hover:text-gray-200'
                                     }`}
                             >
                                 <div className="flex items-center justify-between">
