@@ -28,8 +28,11 @@ export const PersonalNote = () => {
         offset: ["center center", "bottom start"]
     });
 
-    const beamHeight = useTransform(scrollYProgress, [0, 0.8], ["0%", "100%"]);
-    const beamOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+    const rawHeight = useTransform(scrollYProgress, [0, 0.8], ["0%", "100%"]);
+    const beamHeight = useTransform(rawHeight, (v) => v || "0%");
+
+    const rawOpacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+    const beamOpacity = useTransform(rawOpacity, (v) => (isNaN(v) ? 0 : v));
 
     return (
         <section id="why-paive" ref={containerRef} className="py-12 px-6 relative z-10 flex flex-col justify-center scroll-mt-32">
