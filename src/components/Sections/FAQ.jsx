@@ -4,28 +4,20 @@ import { ChevronDown } from 'lucide-react';
 
 const faqData = [
     {
-        question: "I haven't started my career yet. Is this for me?",
-        answer: "Yes. pAIve helps you map your path <em>before</em> you take the first step, ensuring you aren't training for a role that is currently being automated out of existence."
-    },
-    {
-        question: "I have a job, but I feel like a fraud. Can AI help?",
-        answer: "Absolutely. This is the 'Myers-Briggs of Jobs' approach. We help you find where your unique human intuition thrives, moving you away from the 'clerical' tasks AI can do better."
-    },
-    {
-        question: "What if the AI just tells me what I already know?",
-        answer: "Generic AI is a librarian; pAIve is a partner. We dig into the <em>suitability</em> of a role to see if it actually requires your specific human 'edge,' or if it's a role destined for automation."
+        question: "I have a job, but I feel like a fraud. Can pAIve help?",
+        answer: "Absolutely. Imposter Syndrome is often just a symptom of being out of alignment with your true \"frequency.\" While traditional coaching might offer generic affirmations, pAIve uses suitability mapping to prove, with data, exactly why you belong in the room. It is believed that by bridging the gap between your self-perception and your actual potential, we can turn that \"fraud\" feeling into a tactical advantage."
     },
     {
         question: "How does pAIve actually keep me ahead of AI automation?",
-        answer: "We focus on 'High-Touch' over 'High-Task.' pAIve identifies the niches where empathy, creative strategy, and human complexity are the core requirements—the very things AI can't replicate."
+        answer: "It appears that the loudest \"noise\" in the market today is the fear of being replaced. We don’t just help you \"keep up\" with AI; we use it to identify the uniquely human \"edges\" that algorithms cannot replicate. One might argue that the best way to survive the AI revolution is to have an AI partner that knows your human value better than you do."
     },
     {
-        question: "How does pAIve actually keep me ahead of AI automation?",
-        answer: "We focus on 'High-Touch' over 'High-Task.' pAIve identifies the niches where empathy, creative strategy, and human complexity are the core requirements—the very things AI can't replicate."
+        question: "What if I haven't even started my career yet?",
+        answer: "For a fresh grad, the path ahead often looks like a chaotic squiggly line. It is often believed that you need experience to find direction, but pAIve flips that script. By starting with your \"Coaching Style\" and \"Success\" definitions, we help you \"pave the path\" before you even take the first step."
     },
     {
-        question: "How do you handle data privacy?",
-        answer: "We use enterprise-grade AES-256 encryption for all data. most importantly, we are Privacy-by-Design: we never train our public models on your personal career data."
+        question: "How do you handle my data and privacy?",
+        answer: "Career planning requires total honesty, which is impossible if you're being watched. We ensure your data stays private by never creating public-facing profiles. Your thoughts, goals, and \"suitability maps\" are encrypted and used only to power your personal AI coach. We don't sell your info to recruiters, and your current employer will never know you're here. It’s a private space designed for your growth, not for public noise."
     }
 ];
 
@@ -47,7 +39,13 @@ export const FAQ = () => {
 
                 <div className="space-y-4">
                     {faqData.map((faq, idx) => (
-                        <div key={idx} className="border border-white/10 rounded-xl bg-white/5 overflow-hidden transition-colors hover:border-white/20">
+                        <div
+                            key={idx}
+                            className={`border rounded-xl overflow-hidden transition-all duration-300 ${activeIndex === idx
+                                    ? 'border-white/20 bg-white/10 shadow-[0_0_15px_rgba(139,92,246,0.3)]'
+                                    : 'border-white/10 bg-white/5 hover:border-white/20'
+                                }`}
+                        >
                             <button
                                 onClick={() => setActiveIndex(activeIndex === idx ? null : idx)}
                                 className="w-full flex items-center justify-between p-6 text-left"
