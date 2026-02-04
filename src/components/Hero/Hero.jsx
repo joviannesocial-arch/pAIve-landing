@@ -88,8 +88,8 @@ export const Hero = () => {
 
     // Logic: Airtable Submission
     const submitSurveyToAirtable = async () => {
-        const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
-        const AIRTABLE_PAT = import.meta.env.VITE_AIRTABLE_PAT;
+        const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID?.trim();
+        const AIRTABLE_PAT = import.meta.env.VITE_AIRTABLE_PAT?.trim();
         const TABLE_NAME = 'Survey Responses';
         const URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TABLE_NAME)}`;
 
@@ -124,11 +124,7 @@ export const Hero = () => {
             purpose_of_coach_somethingelse: getCustom('one_thing')
         };
 
-        // Remove empty strings for _somethingelse fields to keep Airtable clean (optional, but good practice). 
-        // User said "Only send ..._somethingelse fields if the user has actually typed text". 
-        // Airtable API ignores undefined, so we can filter or just send empty string (which clears it). 
-        // User request: "Only send ... if the user has actually typed text".
-        // Let's explicitly delete empty keys to be safe.
+        // Remove empty strings for _somethingelse fields to keep Airtable clean
         Object.keys(fields).forEach(key => {
             if (key.endsWith('_somethingelse') && !fields[key]) {
                 delete fields[key];
@@ -148,8 +144,7 @@ export const Hero = () => {
             if (response.ok) {
                 setStep(6);
                 setStatus('survey_submitted');
-                setUserData(prev => ({ ...prev, rank: 124 })); // Keep the rank update logic from before?
-                console.log("Survey submitted successfully to Airtable!");
+                setUserData(prev => ({ ...prev, rank: 124 }));
             } else {
                 console.error("Failed to submit to Airtable:", response.status, response.statusText);
                 const errorData = await response.json();
