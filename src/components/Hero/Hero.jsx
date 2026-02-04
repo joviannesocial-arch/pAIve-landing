@@ -86,6 +86,80 @@ export const Hero = () => {
         }, 1500);
     };
 
+    // Logic: Airtable Submission
+    const submitSurveyToAirtable = async () => {
+        const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
+        const AIRTABLE_PAT = import.meta.env.VITE_AIRTABLE_PAT;
+        const TABLE_NAME = 'Survey Responses';
+        const URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TABLE_NAME)}`;
+
+        // Map Responses
+        const r = userData.responses;
+
+        // Helper to get custom text only if "Something else..." was selected
+        const getCustom = (id) => r[id]?.selection === "Something else..." ? r[id]?.customText : "";
+
+        const fields = {
+            name: userData.name,
+            email: userData.email,
+            signup_date: new Date().toISOString().split('T')[0],
+
+            // Q1: Career Stage
+            career_stage: r.path?.selection || "",
+            career_stage_somethingelse: getCustom('path'),
+
+            // Q2: Loudest Noise
+            loudest_noise: r.noise?.selection || "",
+            loudest_noise_somethingelse: getCustom('noise'),
+
+            // Q3: Success 3mo
+            success: r.success_3mo?.selection || "",
+            success_somethingelse: getCustom('success_3mo'),
+
+            // Q4: Coaching Style
+            coaching_style: r.coaching_style?.selection || "",
+
+            // Q5: Purpose
+            purpose_of_coach: r.one_thing?.selection || "",
+            purpose_of_coach_somethingelse: getCustom('one_thing')
+        };
+
+        // Remove empty strings for _somethingelse fields to keep Airtable clean (optional, but good practice). 
+        // User said "Only send ..._somethingelse fields if the user has actually typed text". 
+        // Airtable API ignores undefined, so we can filter or just send empty string (which clears it). 
+        // User request: "Only send ... if the user has actually typed text".
+        // Let's explicitly delete empty keys to be safe.
+        Object.keys(fields).forEach(key => {
+            if (key.endsWith('_somethingelse') && !fields[key]) {
+                delete fields[key];
+            }
+        });
+
+        try {
+            const response = await fetch(URL, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Bearer ${AIRTABLE_PAT}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ records: [{ fields }] })
+            });
+
+            if (response.ok) {
+                setStep(6);
+                setStatus('survey_submitted');
+                setUserData(prev => ({ ...prev, rank: 124 })); // Keep the rank update logic from before?
+                console.log("Survey submitted successfully to Airtable!");
+            } else {
+                console.error("Failed to submit to Airtable:", response.status, response.statusText);
+                const errorData = await response.json();
+                console.error("Airtable Error Details:", errorData);
+            }
+        } catch (error) {
+            console.error("Network error submitting to Airtable:", error);
+        }
+    };
+
     // Logic: Survey Navigation
     const handleNext = () => {
         const currentResponse = userData.responses[currentQuestion?.id] || {};
@@ -97,10 +171,8 @@ export const Hero = () => {
         if (step < questions.length - 1) {
             setStep(step + 1);
         } else {
-            // FINALIZE PROFILE & TRIGGER RANK JUMP
-            setUserData(prev => ({ ...prev, rank: 124 }));
-            setStatus('survey_submitted');
-            console.log("Final User Data for DB:", userData);
+            // FINALIZE PROFILE & TRIGGER AIRTABLE SUBMISSION
+            submitSurveyToAirtable();
         }
     };
 
