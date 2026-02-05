@@ -93,7 +93,7 @@ export const Navbar = () => {
                     </Link>
 
                     {/* Desktop Nav */}
-                    <div className="hidden md:flex items-center gap-8">
+                    <div className="hidden md:flex h-full items-center gap-8">
                         {navLinks.map((link) => {
                             const isActive = link.type === 'route'
                                 ? location.pathname === link.path
@@ -119,7 +119,7 @@ export const Navbar = () => {
                         })}
                     </div>
 
-                    <div className="hidden md:block">
+                    <div className="hidden md:flex h-full items-center">
                         <GradientButton className="py-2 px-6 text-sm" onClick={() => scrollToSection('waitlist-section')}>
                             Join Community
                         </GradientButton>
