@@ -130,7 +130,10 @@ export const SurveyStack = ({ questions, step, userData, setUserData, onNext, on
                             className="mt-6 text-right"
                         >
                             <button
-                                onClick={onNext}
+                                onClick={() => {
+                                    console.log("SurveyStack: Button Clicked"); // DEBUG
+                                    onNext();
+                                }}
                                 disabled={isCustom && !currentCustomText.trim()}
                                 className="bg-white text-black hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed font-bold py-2 px-6 rounded-lg transition-colors shadow-lg flex items-center gap-2 ml-auto"
                             >

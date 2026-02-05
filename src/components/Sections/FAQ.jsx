@@ -12,8 +12,8 @@ const faqData = [
         answer: "pAIve identifies your cultural resonance and professional alignment with surgical precision. We distinguish between high-pressure startup environments and structured corporate cultures to find where you will actually thrive. We don’t just match keywords; we map your personality to the workplace architectures that suit you best."
     },
     {
-        question: "I have a job, but I feel like a fraud. Can AI help?",
-        answer: "Yes, pAIve uses objective suitability mapping to dismantle imposter syndrome. By analyzing your actual strengths against industry benchmarks, we provide data-driven proof of your value. This transforms internal anxiety into a tactical professional advantage."
+        question: "I have a job, but constantly feel like a fraud. How will pAIve help?",
+        answer: "That is such a common feeling. pAIve uses objective suitability mapping to dismantle imposter syndrome. By analyzing your actual strengths against industry benchmarks, we provide data-driven proof of your value. This transforms internal anxiety into a tactical professional advantage."
     },
     {
         question: "How does pAIve keep me ahead of AI automation?",
@@ -25,7 +25,7 @@ const faqData = [
     },
     {
         question: "Is pAIve free for users?",
-        answer: "No, pAIve is a premium service with tiered pricing, designed to make professional coaching affordable for everyone. These tiers ensure that you only pay for the level of support you need as you progress through your career.<br/><br/>We avoid the \"free\" model because high-precision coaching requires a dedicated, fine-tuned infrastructure and your career is too important to be treated as a data-mining exercise."
+        answer: "No, pAIve will not be a free platform. pAIve will follow a tiered pricing, designed to make professional coaching affordable for everyone. These tiers ensure that you only pay for the level of support you need as you progress through your career.<br/><br/>We avoid the \"free\" model because high-precision coaching requires a dedicated, fine-tuned infrastructure and your career is too important to be treated as a data-mining exercise."
     },
     {
         question: "How do you handle my data and privacy?",
@@ -37,7 +37,7 @@ const faqData = [
     },
     {
         question: "Where can I find help or join the community?",
-        answer: "Joining the waitlist grants you immediate status as a Co-Creator. This gives you direct access to early-adopter updates and a chance to influence our development roadmap. If you have specific concerns, share them in your onboarding survey to help us pave the path for the entire community."
+        answer: "Joining the waitlist grants you immediate status as a Co-Creator. This provides direct access to early-adopter updates and a unique opportunity to influence our development roadmap.<br/><br/>Alternatively, the most vibrant updates are shared on <a href='https://x.com/paiveapp' target='_blank' class='text-brand-cyan hover:underline'>X/Twitter</a> (also linked in our footer). This is the best place to see the transformation of pAIve in real-time."
     }
 ];
 

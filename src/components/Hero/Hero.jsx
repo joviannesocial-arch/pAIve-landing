@@ -61,7 +61,7 @@ export const Hero = () => {
     const validateName = (name) => /^[a-zA-Z\s]{2,}$/.test(name);
     const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newErrors = {};
 
@@ -80,14 +80,51 @@ export const Hero = () => {
         setErrors({});
         setStatus('submitting');
 
-        // Simulate API call
-        setTimeout(() => {
-            setStatus('success');
-        }, 1500);
+        // Kit Submission Logic (Moved from submitSurveyToAirtable)
+        const submitToKit = async () => {
+            console.log("📧 Submitting to Kit...", userData.email); // DEBUG
+            const KIT_API_SECRET = import.meta.env.VITE_KIT_API_SECRET;
+            const KIT_FORM_ID = import.meta.env.VITE_KIT_FORM_ID;
+            // Use Global Endpoint for V4
+            const KIT_URL = `https://api.kit.com/v4/subscribers`;
+
+            const response = await fetch(KIT_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Kit-Api-Key': KIT_API_SECRET
+                },
+                body: JSON.stringify({
+                    email_address: userData.email,
+                    first_name: userData.name,
+                    form_id: KIT_FORM_ID
+                })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(`Kit Error: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
+            }
+            console.log("✅ Kit Success!"); // DEBUG
+            return response;
+        };
+
+        // Execute Kit Submission + Min Delay
+        try {
+            await Promise.all([
+                submitToKit(),
+                new Promise(resolve => setTimeout(resolve, 1500))
+            ]);
+        } catch (error) {
+            console.error("Failed to submit to Kit (Non-blocking):", error);
+        }
+
+        setStatus('success');
     };
 
-    // Logic: Airtable Submission
+    // Logic: Final Submission (Airtable + Kit)
     const submitSurveyToAirtable = async () => {
+        console.log("🚀 Starting Submission Process..."); // DEBUG
         const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID?.trim();
         const AIRTABLE_PAT = import.meta.env.VITE_AIRTABLE_PAT?.trim();
         const TABLE_NAME = 'Survey Responses';
@@ -131,7 +168,8 @@ export const Hero = () => {
             }
         });
 
-        try {
+        // 1. Airtable Submission Logic
+        const submitToAirtable = async () => {
             const response = await fetch(URL, {
                 method: 'POST',
                 headers: {
@@ -141,22 +179,30 @@ export const Hero = () => {
                 body: JSON.stringify({ records: [{ fields }] })
             });
 
-            if (response.ok) {
-                setStep(6);
-                setStatus('survey_submitted');
-                setUserData(prev => ({ ...prev, rank: 124 }));
-            } else {
-                console.error("Failed to submit to Airtable:", response.status, response.statusText);
+            if (!response.ok) {
                 const errorData = await response.json();
-                console.error("Airtable Error Details:", errorData);
+                throw new Error(`Airtable Error: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
             }
+            console.log("Airtable Success!"); // DEBUG
+            return response;
+        };
+
+        // Execution (Airtable Only)
+        try {
+            await submitToAirtable();
         } catch (error) {
-            console.error("Network error submitting to Airtable:", error);
+            console.error("Failed to submit to Airtable:", error);
         }
+
+        // Success Gate: Proceed regardless of failure
+        setStep(6);
+        setStatus('survey_submitted');
+        setUserData(prev => ({ ...prev, rank: 124 }));
     };
 
     // Logic: Survey Navigation
     const handleNext = () => {
+        console.log("Hero: handleNext called. Step:", step); // DEBUG
         const currentResponse = userData.responses[currentQuestion?.id] || {};
         const isCustom = currentResponse.selection === "Something else...";
 
@@ -167,6 +213,7 @@ export const Hero = () => {
             setStep(step + 1);
         } else {
             // FINALIZE PROFILE & TRIGGER AIRTABLE SUBMISSION
+            console.log("Hero: Final step! Triggering submission..."); // DEBUG
             submitSurveyToAirtable();
         }
     };
@@ -178,7 +225,7 @@ export const Hero = () => {
     };
 
     return (
-        <section id="waitlist-section" className="relative pt-24 pb-20 px-6 min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
+        <section id="waitlist-section" className="relative pt-32 pb-20 px-6 min-h-screen flex flex-col items-center justify-center text-center overflow-hidden">
 
             {/* Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-indigo/20 rounded-full blur-[120px] -z-10" />
@@ -190,7 +237,7 @@ export const Hero = () => {
                 transition={{ duration: 0.6 }}
             >
                 <span className="inline-block py-1 px-3 rounded-full bg-white/5 border border-white/10 text-brand-cyan text-sm font-medium mb-6">
-                    v2026.1.23 Release
+                    v2026 Release
                 </span>
             </motion.div>
 
@@ -199,18 +246,18 @@ export const Hero = () => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.1 }}
-                className="text-5xl md:text-8xl font-bold tracking-tight mb-6 max-w-5xl"
+                className="text-5xl md:text-8xl font-bold tracking-tight mb-10 max-w-5xl"
             >
-                The <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-indigo via-purple-500 to-brand-cyan">Myers-Briggs</span> of Careers
+                Hey <span className="bg-clip-text text-transparent bg-gradient-to-r from-brand-indigo via-purple-500 to-brand-cyan">pAIve</span>, What’s Next?
             </motion.h1>
 
             <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-lg md:text-xl text-gray-400 max-w-2xl mb-8 leading-relaxed"
+                className="text-lg md:text-xl text-gray-400 max-w-2xl mb-12 leading-relaxed"
             >
-                Meet pAIve, your AI career partner that guides you through industry pivots, imposter syndrome, and finding your true career suitability.
+                Meet pAIve, your personal AI career coach that guides you through industry pivots, imposter syndrome, and finding your true career suitability.
             </motion.p>
 
             {/* INTERACTIVE CARD AREA (The Application Core) */}

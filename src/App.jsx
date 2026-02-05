@@ -6,6 +6,10 @@ import { Home } from './pages/Home';
 import { Security } from './pages/Security';
 import { Quiz } from './pages/Quiz';
 
+import { Footer } from './components/Navigation/Footer';
+import { Privacy } from './pages/Privacy';
+import { Terms } from './pages/Terms';
+
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -31,19 +35,12 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/security" element={<Security />} />
               <Route path="/quiz" element={<Quiz />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
             </Routes>
           </main>
 
-          <footer className="py-8 text-center text-gray-400 text-sm border-t border-white/5 bg-space-black/80 backdrop-blur-md relative z-10">
-            <div className="container mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-              <div>&copy; 2026 pAIve Inc. All rights reserved.</div>
-              <div className="flex gap-6">
-                <a href="#" className="hover:text-white transition-colors">Privacy</a>
-                <a href="#" className="hover:text-white transition-colors">Terms</a>
-                <a href="https://x.com/paiveapp" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Twitter</a>
-              </div>
-            </div>
-          </footer>
+          <Footer />
         </div>
       </ReactLenis>
     </Router>
