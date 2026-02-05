@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import logoIcon from '../../assets/logo-icon.png';
+import logoText from '../../assets/logo-text.png';
 
 export const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -82,10 +84,12 @@ export const Navbar = () => {
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || mobileMenuOpen ? 'bg-space-black/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent border-transparent'
                     }`}
             >
-                <div className="container mx-auto px-6 h-20 flex items-center justify-between">
-                    <Link to="/" className="text-2xl font-bold tracking-tight text-white flex items-center gap-2 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                        <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-indigo to-brand-cyan flex items-center justify-center text-sm shadow-[0_0_15px_rgba(79,70,229,0.5)]">AI</span>
-                        pAIve
+                <div className="container mx-auto px-6 h-24 flex items-center justify-between">
+                    <Link to="/" className="flex items-center cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+                        {/* Adjusted vertical alignment: mt-1 to center better */}
+                        <img src={logoIcon} alt="pAIve Logo" className="w-40 h-40 object-contain mt-1 shrink-0" />
+                        {/* Massive Text: h-64 (256px) - tighted gap slightly less with -ml-28 */}
+                        <img src={logoText} alt="pAIve" className="h-64 object-contain -ml-28 shrink-0" />
                     </Link>
 
                     {/* Desktop Nav */}
