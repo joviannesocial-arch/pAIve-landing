@@ -5,6 +5,7 @@ import { Navbar } from './components/Navigation/Navbar';
 import { Home } from './pages/Home';
 import { Security } from './pages/Security';
 import { Quiz } from './pages/Quiz';
+import { Preloader } from './components/UI/Preloader'; // IMPORT
 
 import { Footer } from './components/Navigation/Footer';
 import { Privacy } from './pages/Privacy';
@@ -24,6 +25,9 @@ function App() {
       <ScrollToTop />
       <ReactLenis root>
         <div className="min-h-screen relative overflow-x-hidden text-white font-sans selection:bg-brand-indigo/30 selection:text-white">
+
+          <Preloader /> {/* SPLASH SCREEN */}
+
           {/* Global Background Star Effects */}
           <div className="stars" />
           <div className="stars-2" />
