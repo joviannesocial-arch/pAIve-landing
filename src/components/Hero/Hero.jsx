@@ -34,24 +34,50 @@ export const Hero = () => {
             options: ["Still studying", "Fresh Grad/Graduate", "Career Switcher", "Feeling stuck", "Something else..."]
         },
         {
-            id: 'noise',
-            question: "What is the loudest 'noise' holding you back right now?",
-            options: ["Imposter syndrome", "AI fear", "Lack of direction", "Networking anxiety", "Something else..."]
+            id: 'mental_wall',
+            question: "The Mental Wall (Hurdle Identification): When you think about committing to a career path, what is the biggest 'wall' you keep hitting?",
+            options: [
+                "I’m worried I’m not actually as smart or capable as my results suggest.",
+                "I have too many interests and I’m terrified of picking the 'wrong' one.",
+                "I don’t understand how the 'real world' works outside of school yet.",
+                "I feel pressured to follow a path that doesn’t actually feel like 'me'.",
+                "Something else..."
+            ]
         },
         {
-            id: 'success_3mo',
-            question: "In a perfect world, what does 'Success' look like for you 3 months from now?",
-            options: ["A higher salary", "A sense of purpose", "A clear 1-year roadmap", "Interview confidence", "Something else..."]
+            id: 'success_milestone',
+            question: "The 3-Month Success (Milestone Assessment): If you could fast-forward 3 months, what one achievement would make you say, 'I’ve made it'?",
+            options: [
+                "Having a clear, data-backed plan for my first career steps.",
+                "Having the social confidence to crush my first real interview.",
+                "Securing my first real paycheck or a tangible professional win.",
+                "Finding a path that finally feels meaningful and aligned with my values.",
+                "Something else..."
+            ]
         },
         {
-            id: 'coaching_style',
-            question: "Which of our 5 Coaching Styles feels like the right 'frequency' for you today?",
-            options: ["The Creative", "The Analyst", "The Commander", "The Sage", "The Mix", "I'm not sure yet..."]
+            id: 'navigation_style',
+            question: "The Navigation Style (Compass Calibration): Imagine you are lost in a massive, unfamiliar city. How do you naturally prefer to find your way back?",
+            options: [
+                "I want a map with exact coordinates and a clear, logical route to follow.",
+                "I’d rather find a friendly local and ask for their personal recommendation.",
+                "I’ll just start walking in a promising direction and figure it out as I go.",
+                "I’d look for a high vantage point to see the whole layout before moving.",
+                "Something else..."
+            ]
         },
         {
             id: 'one_thing',
             question: "What are you hoping to achieve with pAIve?",
             options: ["Finding the right roles", "CV optimization", "Emotional support", "Salary negotiation", "Something else..."]
+        },
+        {
+            id: 'feedback',
+            question: "Any additional feedback? (Optional)",
+            type: 'textarea', // New type for SurveyStack
+            placeholder: "Share your thoughts (max 500 chars)...",
+            maxLength: 500,
+            options: [] // No options for textarea
         }
     ];
 
@@ -145,20 +171,24 @@ export const Hero = () => {
             career_stage: r.path?.selection || "",
             career_stage_somethingelse: getCustom('path'),
 
-            // Q2: Loudest Noise
-            loudest_noise: r.noise?.selection || "",
-            loudest_noise_somethingelse: getCustom('noise'),
+            // Q2: Mental Wall (Formerly Loudest Noise)
+            mental_wall: r.mental_wall?.selection || "",
+            mental_wall_somethingelse: getCustom('mental_wall'),
 
-            // Q3: Success 3mo
-            success: r.success_3mo?.selection || "",
-            success_somethingelse: getCustom('success_3mo'),
+            // Q3: Success Milestone (Formerly Success 3mo)
+            success_milestone: r.success_milestone?.selection || "",
+            success_milestone_somethingelse: getCustom('success_milestone'),
 
-            // Q4: Coaching Style
-            coaching_style: r.coaching_style?.selection || "",
+            // Q4: Navigation Style (Formerly Coaching Style)
+            navigation_style: r.navigation_style?.selection || "",
+            navigation_style_somethingelse: getCustom('navigation_style'),
 
             // Q5: Purpose
             purpose_of_coach: r.one_thing?.selection || "",
-            purpose_of_coach_somethingelse: getCustom('one_thing')
+            purpose_of_coach_somethingelse: getCustom('one_thing'),
+
+            // Q6: Bonus Feedback
+            feedback: r.feedback?.customText || ""
         };
 
         // Remove empty strings for _somethingelse fields to keep Airtable clean

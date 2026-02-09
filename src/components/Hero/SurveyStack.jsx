@@ -53,6 +53,21 @@ export const SurveyStack = ({ questions, step, userData, setUserData, onNext, on
         }));
     };
 
+    const handleTextareaChange = (e) => {
+        const text = e.target.value;
+        setUserData(prev => ({
+            ...prev,
+            responses: {
+                ...prev.responses,
+                [currentQuestion.id]: {
+                    ...prev.responses[currentQuestion.id],
+                    customText: text,
+                    selection: 'free_text' // Mark as answered
+                }
+            }
+        }));
+    };
+
     return (
         <div className="space-y-6 w-full relative">
             <div className={`flex items-center justify-between text-xs text-gray-500 font-mono mb-2 ${step > 0 ? 'mt-8' : ''}`}>
@@ -81,28 +96,44 @@ export const SurveyStack = ({ questions, step, userData, setUserData, onNext, on
                         {currentQuestion.question}
                     </h4>
 
-                    <div className="space-y-3">
-                        {currentQuestion.options.map((option, idx) => (
-                            <motion.button
-                                key={option}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 + (idx * 0.05) }}
-                                onClick={() => handleAnswerSelect(option)}
-                                className={`w-full text-left px-5 py-3 rounded-lg border transition-all duration-200 text-sm font-medium ${currentSelection === option
-                                    ? 'bg-brand-indigo/20 border-brand-indigo text-white shadow-[0_0_15px_rgba(79,70,229,0.3)]'
-                                    : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:border-white/20 hover:text-gray-200'
-                                    }`}
-                            >
-                                <div className="flex items-center justify-between">
-                                    <span>{option}</span>
-                                    {currentSelection === option && <Check className="w-4 h-4 text-brand-indigo" />}
-                                </div>
-                            </motion.button>
-                        ))}
-                    </div>
+                    {currentQuestion.type === 'textarea' ? (
+                        <div className="space-y-3">
+                            <textarea
+                                value={currentResponse.customText || ''}
+                                onChange={handleTextareaChange}
+                                placeholder={currentQuestion.placeholder || "Type here..."}
+                                maxLength={currentQuestion.maxLength || 500}
+                                className="w-full h-32 bg-white/5 border border-white/10 rounded-lg p-4 text-white text-sm focus:outline-none focus:border-brand-indigo resize-none"
+                                autoFocus
+                            />
+                            <div className="text-right text-xs text-gray-500">
+                                {(currentResponse.customText || '').length} / {currentQuestion.maxLength || 500}
+                            </div>
+                        </div>
+                    ) : (
+                        <div className="space-y-3">
+                            {currentQuestion.options.map((option, idx) => (
+                                <motion.button
+                                    key={option}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.1 + (idx * 0.05) }}
+                                    onClick={() => handleAnswerSelect(option)}
+                                    className={`w-full text-left px-5 py-3 rounded-lg border transition-all duration-200 text-sm font-medium ${currentSelection === option
+                                        ? 'bg-brand-indigo/20 border-brand-indigo text-white shadow-[0_0_15px_rgba(79,70,229,0.3)]'
+                                        : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:border-white/20 hover:text-gray-200'
+                                        }`}
+                                >
+                                    <div className="flex items-center justify-between">
+                                        <span>{option}</span>
+                                        {currentSelection === option && <Check className="w-4 h-4 text-brand-indigo" />}
+                                    </div>
+                                </motion.button>
+                            ))}
+                        </div>
+                    )}
 
-                    {/* Custom Input Slide-Down */}
+                    {/* Custom Input Slide-Down for "Something else..." */}
                     <AnimatePresence>
                         {(isCustom) && (
                             <motion.div
@@ -122,8 +153,17 @@ export const SurveyStack = ({ questions, step, userData, setUserData, onNext, on
                         )}
                     </AnimatePresence>
 
-                    {/* Next Button - Only appears after selection */}
-                    {currentSelection && (
+                    {/* Next Button - Only appears after selection OR if it's optional textarea (allow empty?) 
+                        Logic: 
+                        - If standard question: requires selection
+                        - If standard + something else: requires custom text
+                        - If textarea: We can make it optional or required. User prompt said "include one more bonus 'question' ... and a text field". 
+                          Usually 'bonus' or 'feedback' implies optional, but let's allow it to be skipped if empty or not. 
+                          Wait, if it's the *only* thing on the slide, the user needs a way to proceed.
+                          Let's always show 'Next' for textarea type, or make it conditioned on content if strict.
+                          Let's treat it as optional for now, so button always shows for type='textarea'.
+                    */}
+                    {(currentSelection || currentQuestion.type === 'textarea') && (
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -132,6 +172,10 @@ export const SurveyStack = ({ questions, step, userData, setUserData, onNext, on
                             <button
                                 onClick={() => {
                                     console.log("SurveyStack: Button Clicked"); // DEBUG
+                                    // For textarea, ensure selection is set so handleNext doesn't block (handled in handleChange but just in case)
+                                    if (currentQuestion.type === 'textarea' && !currentSelection) {
+                                        handleTextareaChange({ target: { value: currentResponse.customText || '' } });
+                                    }
                                     onNext();
                                 }}
                                 disabled={isCustom && !currentCustomText.trim()}
