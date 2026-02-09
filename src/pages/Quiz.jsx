@@ -7,157 +7,162 @@ import { GlassCard } from '../components/UI/GlassCard';
 import { styles as coachingStyles } from '../components/Sections/AvatarProfiles';
 
 const questions = [
+    // 1. The "Deep Dive" Method (Uncovering the "Why")
     {
         id: 1,
-        text: "When you face a big career decision, what is your first instinct?",
+        text: "When you achieve a high grade or complete a difficult project, what specific part of the 'win' feels the most fulfilling to you?",
         options: [
-            { text: "Look for data & market trends", type: "The Analyst" },
-            { text: "Imagine the creative 'What ifs'", type: "The Creative" },
-            { text: "Seek fast wins & momentum", type: "The Commander" },
-            { text: "Reflect on long-term purpose", type: "The Sage" }
+            { text: "The moment the logic finally clicked and the problem was solved.", type: "The Analyst" },
+            { text: "The recognition and the way it connects me to my peers.", type: "The Creative" },
+            { text: "The proof that my individual system and effort actually work.", type: "The Commander" },
+            { text: "The internal peace of knowing I am capable of meeting the standard.", type: "The Sage" }
         ]
     },
     {
         id: 2,
-        text: "It’s 2:00 AM and you’re stressed about your career. What does that feel like?",
+        text: "Why do you prefer your current favourite study environment (e.g., a quiet library versus a busy cafe)?",
         options: [
-            { text: "Anxiety from lack of information", type: "The Analyst" },
-            { text: "Imposter Syndrome & self-doubt", type: "The Creative" },
-            { text: "Frustration about wasting time", type: "The Commander" },
-            { text: "Fear of meaningless work", type: "The Sage" }
+            { text: "Because it allows for deep, uninterrupted attention to technical detail.", type: "The Analyst" },
+            { text: "Because the background energy makes me feel part of a collective buzz.", type: "The Creative" },
+            { text: "Because it is a controlled space where I set the rules of my work.", type: "The Commander" },
+            { text: "Because I can observe the world while still processing my own thoughts.", type: "The Sage" }
         ]
     },
     {
         id: 3,
-        text: "When your progress stalls, how do you want the feedback delivered?",
+        text: "Think of your favourite subject. Is it the actual content you love, or the way you have to think to succeed in it?",
         options: [
-            { text: "The 'Cold Mirror' (Raw Gaps)", type: "The Analyst" },
-            { text: "The 'Map' (Creative Pivots)", type: "The Creative" },
-            { text: "The 'Audit' (Strategic Errors)", type: "The Commander" },
-            { text: "The 'Reflection' (Gentle Growth)", type: "The Sage" }
+            { text: "The logical, step-by-step thinking required to find a single truth.", type: "The Analyst" },
+            { text: "The way the subject connects to real people and societal change.", type: "The Creative" },
+            { text: "The opportunity to build, create, or lead within that field.", type: "The Commander" },
+            { text: "The chance to interpret and find deeper, hidden meaning in the material.", type: "The Sage" }
         ]
     },
+    // 2. Behavioral & Situational Questions (Past Patterns)
     {
         id: 4,
-        text: "If your current approach isn't landing interviews, what's the first fix?",
+        text: "Think of a time you were part of a team that completely missed a deadline. What was your immediate, gut reaction?",
         options: [
-            { text: "Re-analyse the data and CV", type: "The Analyst" },
-            { text: "Brainstorm a unique 'hook'", type: "The Creative" },
-            { text: "Increase the volume of apps", type: "The Commander" },
-            { text: "Re-evaluate the 'Why'", type: "The Sage" }
+            { text: "I started looking for the technical bottleneck or logic error to fix it.", type: "The Analyst" },
+            { text: "I checked in with the team to manage the fallout and maintain morale.", type: "The Creative" },
+            { text: "I took the lead in redrafting the timeline and roles for the next attempt.", type: "The Commander" },
+            { text: "I reflected on my own contribution and waited for a new lead to follow.", type: "The Sage" }
         ]
     },
     {
         id: 5,
-        text: "A dream company has a 'tough' reputation. What is your instinct?",
+        text: "Recall a time you disagreed with a major decision made by a teacher or a leader. How did you handle the friction?",
         options: [
-            { text: "Study their balance sheets", type: "The Analyst" },
-            { text: "Pitch them a new vision", type: "The Creative" },
-            { text: "Prepare for a high-stakes battle", type: "The Commander" },
-            { text: "Check if their values match mine", type: "The Sage" }
+            { text: "I presented a data-backed alternative to prove my point logically.", type: "The Analyst" },
+            { text: "I spoke to others to see if we could find a collective compromise.", type: "The Creative" },
+            { text: "I stayed focused on my own work and adjusted my methods to fit the new rule.", type: "The Commander" },
+            { text: "I accepted the decision but kept a mental note of exactly why I felt it was wrong.", type: "The Sage" }
         ]
     },
     {
         id: 6,
-        text: "In a high-pressure interview, what is your secret weapon?",
+        text: "Tell me about a time you went 'above and beyond' on a task. What was the internal driver that kept you going?",
         options: [
-            { text: "Methodical preparation", type: "The Analyst" },
-            { text: "Quick-witted storytelling", type: "The Creative" },
-            { text: "Natural dominance/authority", type: "The Commander" },
-            { text: "Calm, grounded presence", type: "The Sage" }
+            { text: "The desire to see if I could push the system or the project to its absolute limit.", type: "The Analyst" },
+            { text: "The satisfaction of helping someone else succeed or feel included.", type: "The Creative" },
+            { text: "The pride in creating something that was uniquely my own design.", type: "The Commander" },
+            { text: "The sense of duty to complete the work to the highest possible standard.", type: "The Sage" }
         ]
     },
     {
         id: 7,
-        text: "When looking at a job description, what catches your eye first?",
+        text: "Think of your most significant 'failure' in the last year. What was the first thing you changed about your behaviour after?",
         options: [
-            { text: "Tech stack & Requirements", type: "The Analyst" },
-            { text: "Innovative project potential", type: "The Creative" },
-            { text: "Rapid promotion tracks", type: "The Commander" },
-            { text: "Long-term cultural impact", type: "The Sage" }
+            { text: "I refined the logic and the technical steps I took to avoid that specific error.", type: "The Analyst" },
+            { text: "I reached out for feedback to understand how I was perceived by others.", type: "The Creative" },
+            { text: "I tightened my personal schedule and my self-discipline.", type: "The Commander" },
+            { text: "I took time to reflect on whether that path was truly suited to my values.", type: "The Sage" }
         ]
     },
+    // 3. "What If" Scenarios (Hypotheticals)
     {
         id: 8,
-        text: "It's 2 AM and you're stressed. How do you find clarity?",
+        text: "You have a Saturday with zero obligations. You naturally gravitate towards...",
         options: [
-            { text: "I build a logic spreadsheet", type: "The Analyst" },
-            { text: "I write out new possibilities", type: "The Creative" },
-            { text: "I plan the next morning's 'wins'", type: "The Commander" },
-            { text: "I meditate on my purpose", type: "The Sage" }
+            { text: "A deep-dive into a complex hobby, code, or a digital project.", type: "The Analyst" },
+            { text: "A social gathering or an event where things are happening with people.", type: "The Creative" },
+            { text: "A personal creative task or a 'side-hustle' you've been building.", type: "The Commander" },
+            { text: "A quiet space to recharge, read, or observe the world.", type: "The Sage" }
         ]
     },
     {
         id: 9,
-        text: "How do you prefer to view your career path?",
+        text: "You find an unmarked wallet with $100 on the school grounds. Your instinctual first thought is...",
         options: [
-            { text: "As a technical roadmap", type: "The Analyst" },
-            { text: "As a serie of chapters", type: "The Creative" },
-            { text: "As a game to be won", type: "The Commander" },
-            { text: "As a search for Ikigai", type: "The Sage" }
+            { text: "'How can I mathematically track down who was in this area last?'", type: "The Analyst" },
+            { text: "'Who can I tell so that the right person gets this back immediately?'", type: "The Creative" },
+            { text: "'I should take charge of this and hand it to the office myself.'", type: "The Commander" },
+            { text: "'I hope whoever lost this isn't in too much trouble right now.'", type: "The Sage" }
         ]
     },
     {
         id: 10,
-        text: "What does 'Professional Success' actually look like to you?",
+        text: "If you were leading a project and a team member wasn't contributing, your primary approach would be...",
         options: [
-            { text: "Becoming a Subject Matter Expert", type: "The Analyst" },
-            { text: "Inventing something new", type: "The Creative" },
-            { text: "Reaching the top of the ladder", type: "The Commander" },
-            { text: "Helping a community grow", type: "The Sage" }
+            { text: "To re-allocate their technical tasks to someone more efficient immediately.", type: "The Analyst" },
+            { text: "To have a one-on-one conversation to see if they are okay personally.", type: "The Creative" },
+            { text: "To set firm, new deadlines and hold them strictly accountable.", type: "The Commander" },
+            { text: "To pick up their slack myself to ensure the final quality doesn't drop.", type: "The Sage" }
         ]
     },
     {
         id: 11,
-        text: "When a market trend shifts suddenly, what do you do?",
+        text: "If you were asked to start a new club at school from scratch, what would your 'Day One' look like?",
         options: [
-            { text: "Gather all the new facts", type: "The Analyst" },
-            { text: "See it as a creative opportunity", type: "The Creative" },
-            { text: "Move faster to beat the trend", type: "The Commander" },
-            { text: "Wait for the signal to clear", type: "The Sage" }
+            { text: "Mapping out the technical requirements and the 'how-it-works' guide.", type: "The Analyst" },
+            { text: "Hosting an open mixer to gather as many different voices as possible.", type: "The Creative" },
+            { text: "Writing the mission statement and a strict roadmap for the entire year.", type: "The Commander" },
+            { text: "Listening to what other people want and seeing where I fit in.", type: "The Sage" }
         ]
     },
+    // 4. Direct Reflection Questions (Self-Analysis)
     {
         id: 12,
-        text: "How do you handle 'Imposter Syndrome'?",
+        text: "What is the one thing your friends or classmates almost always ask you for help with?",
         options: [
-            { text: "I look at my proven certificates", type: "The Analyst" },
-            { text: "I remind myself I am a creator", type: "The Creative" },
-            { text: "I 'fake it' until I win", type: "The Commander" },
-            { text: "I accept it as part of the path", type: "The Sage" }
+            { text: "Troubleshooting a technical issue or explaining a complex rule.", type: "The Analyst" },
+            { text: "Navigating a social drama or settling a disagreement between people.", type: "The Creative" },
+            { text: "Organising a group chat, a trip, or a shared project schedule.", type: "The Commander" },
+            { text: "Giving an honest, grounded perspective on a difficult situation.", type: "The Sage" }
         ]
     },
     {
         id: 13,
-        text: "What is the most important part of a new role?",
+        text: "If you could instantly 'level up' one aspect of your personality, which would have the biggest impact on your future?",
         options: [
-            { text: "The technical challenge", type: "The Analyst" },
-            { text: "The freedom to explore", type: "The Creative" },
-            { text: "The salary and growth speed", type: "The Commander" },
-            { text: "The sense of belonging", type: "The Sage" }
+            { text: "My ability to focus on one complex task for hours without distraction.", type: "The Analyst" },
+            { text: "My confidence in speaking up and leading a large, diverse group.", type: "The Creative" },
+            { text: "My discipline in sticking to a routine and hitting every milestone.", type: "The Commander" },
+            { text: "My empathy in understanding people whose views are opposite to mine.", type: "The Sage" }
         ]
     },
     {
         id: 14,
-        text: "If you were to write a book about your career, what would it be?",
+        text: "What is a passion or interest you have right now that almost nobody else knows about?",
         options: [
-            { text: "A technical manual", type: "The Analyst" },
-            { text: "A visionary manifesto", type: "The Creative" },
-            { text: "A guide to leadership", type: "The Commander" },
-            { text: "A philosophical journal", type: "The Sage" }
+            { text: "Something technical or analytical that requires high, solo focus.", type: "The Analyst" },
+            { text: "Something social or community-based that connects people together.", type: "The Creative" },
+            { text: "Something creative or entrepreneurial that I'm building in secret.", type: "The Commander" },
+            { text: "Something reflective or artistic that helps me process my own thoughts.", type: "The Sage" }
         ]
     },
     {
         id: 15,
-        text: "In one word, what should your AI partner provide?",
+        text: "How do you think a complete stranger would describe you after observing you for just ten minutes?",
         options: [
-            { text: "Precision", type: "The Analyst" },
-            { text: "Inspiration", type: "The Creative" },
-            { text: "Velocity", type: "The Commander" },
-            { text: "Wisdom", type: "The Sage" }
+            { text: "Focused, analytical, and perhaps a bit reserved.", type: "The Analyst" },
+            { text: "Outgoing, energetic, and naturally engaged with others.", type: "The Creative" },
+            { text: "Confident, organised, and clearly on a mission.", type: "The Commander" },
+            { text: "Calm, observant, and thoughtful.", type: "The Sage" }
         ]
     }
 ];
+
 
 const styleColors = {
     "The Creative": { hex: "#ec4899", class: "bg-pink-500" },
