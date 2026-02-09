@@ -35,18 +35,18 @@ export const Hero = () => {
         },
         {
             id: 'mental_wall',
-            question: "The Mental Wall (Hurdle Identification): When you think about committing to a career path, what is the biggest 'wall' you keep hitting?",
+            question: "When you think about committing to a career path, what is the biggest 'wall' you keep hitting?",
             options: [
-                "I’m worried I’m not actually as smart or capable as my results suggest.",
-                "I have too many interests and I’m terrified of picking the 'wrong' one.",
-                "I don’t understand how the 'real world' works outside of school yet.",
-                "I feel pressured to follow a path that doesn’t actually feel like 'me'.",
+                "I'm worried I'm not actually as smart or capable as my results suggest.",
+                "I have too many interests and I'm terrified of picking the 'wrong' one.",
+                "I don't understand how the 'real world' works outside of school yet.",
+                "I feel pressured to follow a path that doesn't actually feel like 'me'.",
                 "Something else..."
             ]
         },
         {
             id: 'success_milestone',
-            question: "The 3-Month Success (Milestone Assessment): If you could fast-forward 3 months, what one achievement would make you say, 'I’ve made it'?",
+            question: "If you could fast-forward 3 months, what one achievement would make you say, 'I've made it'?",
             options: [
                 "Having a clear, data-backed plan for my first career steps.",
                 "Having the social confidence to crush my first real interview.",
@@ -57,12 +57,12 @@ export const Hero = () => {
         },
         {
             id: 'navigation_style',
-            question: "The Navigation Style (Compass Calibration): Imagine you are lost in a massive, unfamiliar city. How do you naturally prefer to find your way back?",
+            question: "Imagine you are lost in a massive, unfamiliar city. How do you naturally prefer to find your way back?",
             options: [
                 "I want a map with exact coordinates and a clear, logical route to follow.",
-                "I’d rather find a friendly local and ask for their personal recommendation.",
-                "I’ll just start walking in a promising direction and figure it out as I go.",
-                "I’d look for a high vantage point to see the whole layout before moving.",
+                "I'd rather find a friendly local and ask for their personal recommendation.",
+                "I'll just start walking in a promising direction and figure it out as I go.",
+                "I'd look for a high vantage point to see the whole layout before moving.",
                 "Something else..."
             ]
         },
@@ -108,7 +108,6 @@ export const Hero = () => {
 
         // Kit Submission Logic (Moved from submitSurveyToAirtable)
         const submitToKit = async () => {
-            console.log("📧 Submitting to Kit...", userData.email); // DEBUG
             const KIT_API_SECRET = import.meta.env.VITE_KIT_API_SECRET;
             const KIT_FORM_ID = import.meta.env.VITE_KIT_FORM_ID;
             // Use Global Endpoint for V4
@@ -131,7 +130,6 @@ export const Hero = () => {
                 const errorData = await response.json();
                 throw new Error(`Kit Error: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
             }
-            console.log("✅ Kit Success!"); // DEBUG
             return response;
         };
 
@@ -150,7 +148,6 @@ export const Hero = () => {
 
     // Logic: Final Submission (Airtable + Kit)
     const submitSurveyToAirtable = async () => {
-        console.log("🚀 Starting Submission Process..."); // DEBUG
         const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID?.trim();
         const AIRTABLE_PAT = import.meta.env.VITE_AIRTABLE_PAT?.trim();
         const TABLE_NAME = 'Survey Responses';
@@ -206,14 +203,17 @@ export const Hero = () => {
                     Authorization: `Bearer ${AIRTABLE_PAT}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ records: [{ fields }] })
+                body: JSON.stringify({
+                    records: [{
+                        fields: fields
+                    }]
+                })
             });
 
             if (!response.ok) {
                 const errorData = await response.json();
                 throw new Error(`Airtable Error: ${response.status} ${response.statusText} - ${JSON.stringify(errorData)}`);
             }
-            console.log("Airtable Success!"); // DEBUG
             return response;
         };
 
@@ -232,7 +232,6 @@ export const Hero = () => {
 
     // Logic: Survey Navigation
     const handleNext = () => {
-        console.log("Hero: handleNext called. Step:", step); // DEBUG
         const currentResponse = userData.responses[currentQuestion?.id] || {};
         const isCustom = currentResponse.selection === "Something else...";
 
@@ -243,7 +242,6 @@ export const Hero = () => {
             setStep(step + 1);
         } else {
             // FINALIZE PROFILE & TRIGGER AIRTABLE SUBMISSION
-            console.log("Hero: Final step! Triggering submission..."); // DEBUG
             submitSurveyToAirtable();
         }
     };
